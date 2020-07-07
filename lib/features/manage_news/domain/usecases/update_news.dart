@@ -12,12 +12,36 @@ class UpdateNews implements UseCase<void, Params> {
 
   @override
   Future<Either<Failure, void>> call( Params params) async {
-    return await repository.updateNews( params.newsCode );
+    return await repository.updateNews(
+        params.newsCode,
+        params.reportCode,
+        params.radioCode,
+        params.hourDate,
+        params.unitCode,
+        params.message,
+        params.updateDate,
+        params.unitCreate);
   }
 }
 
 class Params extends Equatable {
   final String newsCode;
+  final String reportCode;
+  final String radioCode;
+  final int hourDate;
+  final String unitCode;
+  final String message;
+  final int updateDate;
+  final String unitCreate;
 
-  Params({ @required this.newsCode }) : super( [ newsCode ] );
+  Params(
+      {@required this.newsCode,
+        @required this.reportCode,
+        @required this.radioCode,
+        @required this.hourDate,
+        @required this.unitCode,
+        this.message,
+        @required this.updateDate,
+        @required this.unitCreate})
+      : super([newsCode, reportCode, radioCode, hourDate, unitCode, message, updateDate, unitCreate]);
 }

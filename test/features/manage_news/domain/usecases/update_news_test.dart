@@ -16,18 +16,26 @@ void main() {
     usecase = UpdateNews( mockNewsRepository );
   });
 
-  final Params tParams = Params( newsCode: '1' );
+  final Params tParams = Params(
+      newsCode: '1',
+      reportCode: '1',
+      radioCode: '5.20',
+      hourDate: 750000,
+      unitCode: 'Does1',
+      message: 'Desplazamiento',
+      updateDate: 750000,
+      unitCreate: 'Genesis2');
 
   test('should return null when news has been update',
     () async{
     // arrange
-    when( mockNewsRepository.updateNews( any ) )
+    when( mockNewsRepository.updateNews(any, any, any, any, any, any, any, any) )
         .thenAnswer((_) async => Right(null) );
     // act
     final result = await usecase( tParams );
     // assert
     expect( result, equals( Right(null) ) );
-    verify( mockNewsRepository.updateNews( tParams.newsCode ) );
+    verify( mockNewsRepository.updateNews( tParams.newsCode, tParams.reportCode, tParams.radioCode, tParams.hourDate, tParams.unitCode, tParams.message, tParams.updateDate, tParams.unitCreate) );
     verifyNoMoreInteractions( mockNewsRepository );
   });
 }

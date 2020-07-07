@@ -18,5 +18,14 @@ abstract class NewsRepository {
 
   Future<Either<Failure, void>> deleteNews( String newsCode );
 
-  Future<Either<Failure, void>> updateNews( String newsCode );
+  Future<Either<Failure, void>> updateNews(
+      String newsCode,
+      String reportCode,
+      String radioCode,
+      int hourDate,
+      String unitCode,
+      String message,
+      int updateDate,
+      String unitCreate,
+    );
 }
