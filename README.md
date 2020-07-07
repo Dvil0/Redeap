@@ -1,4 +1,4 @@
-# redeap
+# Redeap
 
 Redeap is an app to provide the reports of all users registered in 'Red de Apoyo' from Cali - Colombia.
 
