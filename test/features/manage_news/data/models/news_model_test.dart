@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:redeap/features/manage_news/data/models/news_model.dart';
@@ -33,5 +34,16 @@ void main() {
       // assert
       expect( result, equals( jsonExpected ) );
     });  
+  });
+
+  group('fromJson',(){
+    final Map<String, dynamic> newsJson = json.decode( fixture('news.json') );
+
+    test('should convert to NewsModel when a JSON is given',() {
+      // act
+      final result = NewsModel.fromJson( newsJson );
+      // assert
+      expect( result, tNews );
+    });
   });
 }

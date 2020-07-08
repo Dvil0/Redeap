@@ -14,6 +14,19 @@ class NewsModel extends News {
     @required String unitCreate
   }) : super( newsCode: newsCode, reportCode: reportCode, radioCode: radioCode, hourDate: hourDate, unitCode: unitCode, message: message, updateDate: updateDate, unitCreate: unitCreate );
 
+  factory NewsModel.fromJson( Map<String, dynamic> json ) {
+    return NewsModel(
+        newsCode: json['newsCode'],
+        reportCode: json['reportCode'],
+        radioCode: json['radioCode'],
+        hourDate: ( json['hourDate'] as num ).toInt(),
+        unitCode: json['unitCode'],
+        message: json['message'],
+        updateDate: ( json['updateDate'] as num ).toInt(),
+        unitCreate: json['unitCreate']
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "newsCode" : newsCode,
