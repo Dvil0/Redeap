@@ -5,13 +5,13 @@ import 'package:redeap/core/usecase/usecase.dart';
 import 'package:meta/meta.dart';
 import 'package:redeap/features/manage_news/domain/repositories/news_repository.dart';
 
-class CreateNews implements UseCase<void, Params> {
+class CreateNews implements UseCase<void, CreateParams> {
   final NewsRepository repository;
 
   CreateNews(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(Params params) async {
+  Future<Either<Failure, void>> call(CreateParams params) async {
     return await repository.createNews(
         params.newsCode,
         params.reportCode,
@@ -24,7 +24,7 @@ class CreateNews implements UseCase<void, Params> {
   }
 }
 
-class Params extends Equatable {
+class CreateParams extends Equatable {
   final String newsCode;
   final String reportCode;
   final String radioCode;
@@ -34,7 +34,7 @@ class Params extends Equatable {
   final int updateDate;
   final String unitCreate;
 
-  Params(
+  CreateParams(
       {@required this.newsCode,
       @required this.reportCode,
       @required this.radioCode,

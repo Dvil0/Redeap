@@ -16,7 +16,7 @@ void main() {
     usecase = UpdateNews( mockNewsRepository );
   });
 
-  final Params tParams = Params(
+  final UpdateParams tParams = UpdateParams(
       newsCode: '1',
       reportCode: '1',
       radioCode: '5.20',

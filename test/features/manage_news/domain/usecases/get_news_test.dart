@@ -27,7 +27,7 @@ void main() {
       updateDate: 750000,
       unitCreate: 'Genesis2') ];
 
-  final tParams = Params( reportCode: '1', unitCreate: 'Genesis2', dateCreate: 70000 );
+  final tParams = GetParams( reportCode: '1', unitCreate: 'Genesis2', dateCreate: 70000 );
 
   test('should get news list from repository',
   () async {

@@ -15,7 +15,7 @@ void main() {
     usecase = CreateNews(mockNewsRepository);
   });
 
-  Params tParams = Params(
+  CreateParams tParams = CreateParams(
       newsCode: '1',
       reportCode: '1',
       radioCode: '5.20',
