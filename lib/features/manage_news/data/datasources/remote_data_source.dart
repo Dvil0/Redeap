@@ -49,32 +49,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<void> createNews(String newsCode, String reportCode, String radioCode, int hourDate, String unitCode, String message, int updateDate, String unitCreate) async {
-    NewsModel newsModel;
+    final NewsModel newsModel = NewsModel(
+        newsCode: newsCode,
+        reportCode: reportCode,
+        radioCode: radioCode,
+        hourDate: hourDate,
+        unitCode: unitCode,
+        message: message,
+        updateDate: updateDate,
+        unitCreate: unitCreate
+    );
 
-    try {
-      newsModel = NewsModel(
-          newsCode: newsCode,
-          reportCode: reportCode,
-          radioCode: radioCode,
-          hourDate: hourDate,
-          unitCode: unitCode,
-          message: message,
-          updateDate: updateDate,
-          unitCreate: unitCreate
-      );
-      await cloudFireStoreApi.addDocument( newsModel.toJson() );
-    } catch( exception ) {
-      throw ServerException();
-    }
+    await _runApi(() => cloudFireStoreApi.addDocument( newsModel.toJson() ));
   }
 
   @override
   Future<void> deleteNews(String newsCode) async {
-    try{
-      await cloudFireStoreApi.removeDocument( newsCode );
-    } catch( exception ) {
-      throw ServerException();
-    }
+    await _runApi(() => cloudFireStoreApi.removeDocument( newsCode ));
   }
 
   @override
@@ -92,23 +83,27 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<void> updateNews(String newsCode, String reportCode, String radioCode, int hourDate, String unitCode, String message, int updateDate, String unitCreate) async {
-    NewsModel newsModel;
-    try{
-      newsModel = NewsModel(
-          newsCode: newsCode,
-          reportCode: reportCode,
-          radioCode: radioCode,
-          hourDate: hourDate,
-          unitCode: unitCode,
-          message: message,
-          updateDate: updateDate,
-          unitCreate: unitCreate
-      );
-      await cloudFireStoreApi.updateDocument( newsModel.toJson(), newsCode );
+    final NewsModel newsModel = NewsModel(
+        newsCode: newsCode,
+        reportCode: reportCode,
+        radioCode: radioCode,
+        hourDate: hourDate,
+        unitCode: unitCode,
+        message: message,
+        updateDate: updateDate,
+        unitCreate: unitCreate
+    );
 
+    await _runApi(() => cloudFireStoreApi.updateDocument( newsModel.toJson(), newsCode ));
+  }
+
+  Future<dynamic> _runApi(
+    Future Function() fireStoreApi
+  ) async {
+    try{
+      await fireStoreApi();
     }catch( exception ) {
       throw ServerException();
     }
   }
-
 }
