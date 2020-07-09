@@ -16,7 +16,7 @@ void main() {
     usecase = DeleteNews( mockNewsRepository );
   });
 
-  final tParams = Params( newsCode: '1' );
+  final tParams = DeleteParams( newsCode: '1' );
 
   test('should return null when news has been delete',
     () async {

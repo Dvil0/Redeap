@@ -5,8 +5,6 @@ import 'package:redeap/core/api/cloud_fire_store_api.dart';
 import 'package:redeap/core/error/exceptions.dart';
 import 'package:redeap/features/manage_news/data/datasources/remote_data_source.dart';
 import 'package:redeap/features/manage_news/data/models/news_model.dart';
-import 'package:redeap/features/manage_news/domain/entities/news.dart';
-
 
 class MockCloudFireStoreApi extends Mock
     implements CloudFireStoreApi {}
@@ -95,7 +93,7 @@ void main() {
       when( cloudFireStoreApi.removeDocument( any ) )
           .thenAnswer((_) async => null);
       // act
-      final result = await remoteDataSourceImpl.deleteNews( tNewsCode );
+      await remoteDataSourceImpl.deleteNews( tNewsCode );
       // assert
       verify( cloudFireStoreApi.removeDocument( tNewsCode ) );
     });
@@ -168,8 +166,6 @@ void main() {
     final List<NewsModel> tNewsModelList = <NewsModel>[
       tNewsModel
     ];
-
-    final List<News> tNewsList = tNewsModelList;
 
     test('should throw ServerException when api is unsuccessful',() async {
       try{

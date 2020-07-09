@@ -60,6 +60,15 @@ class UpdateNewsForUser extends NewsEvent {
 
 class DeleteNewsForUser extends NewsEvent {
   final String newsCode;
+  final String reportCode;
+  final String unitCreate;
+  final int dateCreate;
 
-  DeleteNewsForUser({this.newsCode}) : super([newsCode]);
+  DeleteNewsForUser({
+    this.newsCode,
+    this.reportCode,
+    this.unitCreate,
+    this.dateCreate
+  }) : super([newsCode, reportCode, unitCreate, dateCreate]);
+
 }

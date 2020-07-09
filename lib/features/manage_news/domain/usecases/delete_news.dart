@@ -5,19 +5,19 @@ import 'package:redeap/core/usecase/usecase.dart';
 import 'package:redeap/features/manage_news/domain/repositories/news_repository.dart';
 import 'package:meta/meta.dart';
 
-class DeleteNews implements UseCase<void, Params> {
+class DeleteNews implements UseCase<void, DeleteParams> {
   final NewsRepository repository;
 
   DeleteNews( this.repository );
 
   @override
-  Future<Either<Failure, void>> call( Params params ) async {
+  Future<Either<Failure, void>> call( DeleteParams params ) async {
     return await repository.deleteNews( params.newsCode );
   }
 }
 
-class Params extends Equatable {
+class DeleteParams extends Equatable {
   final String newsCode;
 
-  Params({ @required this.newsCode }) : super( [ newsCode ] );
+  DeleteParams({ @required this.newsCode }) : super( [ newsCode ] );
 }

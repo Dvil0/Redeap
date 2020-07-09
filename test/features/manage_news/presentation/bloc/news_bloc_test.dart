@@ -206,7 +206,7 @@ void main() {
     );
     final tNewsList = [ tNews ];
 
-    test('should emit [Loading, Error] when retrieve news list after sucessful use case',()async {
+    test('should emit [Loading, Error] when retrieve news list after successful use case',()async {
       // arrange
       when( updateNews( any ) )
           .thenAnswer((_) async => Right(null));
@@ -261,5 +261,137 @@ void main() {
       await untilCalled( getNews( any ) );
       verify( getNews( tGetParams ));
     });
+  });
+
+  group('GetNewsForUser',(){
+    final String tReportCode = '1';
+    final String tUnitCreate = 'Genesis2';
+    final int tDateCreate = 750000;
+
+    final tNewsList = <News>[ News(
+        newsCode: '1',
+        reportCode: '1',
+        radioCode: '5.20',
+        hourDate: 750000,
+        unitCode: 'Does1',
+        message: 'Desplazamiento',
+        updateDate: 750000,
+        unitCreate: 'Genesis2') ];
+
+    final tParams = GetParams( reportCode: '1', unitCreate: 'Genesis2', dateCreate: 750000 );
+
+    test('should emits [Loading, Error] when use case is unsuccessful',() async {
+      // arrange
+      when( getNews( any ) )
+          .thenAnswer((_) async => Left( ServerFailure() ) );
+      // assert
+      final expected = [
+        Empty(),
+        Loading(),
+        Error( message: SERVER_FAILURE_MESSAGE )
+      ];
+      expectLater( newsBloc.state, emitsInOrder( expected ) );
+      // act
+      newsBloc.dispatch( GetNewsForUser() );
+    });
+
+    test('should emits [Loading, Loaded] when use case is successful',() async {
+      // arrange
+      when( getNews( any ) )
+          .thenAnswer((_) async => Right( tNewsList ) );
+      // assert
+      final expected = [
+        Empty(),
+        Loading(),
+        Loaded( newsList: tNewsList )
+      ];
+      expectLater( newsBloc.state, emitsInOrder( expected ) );
+      // act
+      newsBloc.dispatch( GetNewsForUser( reportCode: tReportCode, dateCreate: tDateCreate, unitCreate: tUnitCreate ) );
+      await untilCalled( getNews( any ) );
+      verify( getNews( tParams ));
+    });
+  });
+
+  group('DeleteForUser',(){
+    final String tNewsCode = '1';
+    final String tReportCode = '1';
+    final String tUnitCreate = 'Genesis2';
+    final int tDateCreate = 750000;
+
+    test('should emits [Error] when use case is unsuccessful',() async {
+      // arrange
+      when( deleteNews( any ) )
+          .thenAnswer((realInvocation) async => Left(ServerFailure()) );
+      // assert
+      final expected = [
+        Empty(),
+        Error( message: SERVER_FAILURE_MESSAGE )
+      ];
+      expectLater( newsBloc.state, emitsInOrder( expected ) );
+      // act
+      newsBloc.dispatch( DeleteNewsForUser() );
+    });
+
+    test('should emits [Loading, Error] when retrieve news list after successful use case',() async {
+      // arrange
+      when( deleteNews( any ) )
+          .thenAnswer((_) async => Right(null) );
+      when( getNews( any ) )
+          .thenAnswer((_) async => Left( ServerFailure() ) );
+      // assert
+      final expected = [
+        Empty(),
+        Loading(),
+        Error( message: SERVER_FAILURE_MESSAGE )
+      ];
+      expectLater( newsBloc.state, emitsInOrder( expected ) );
+      // act
+      newsBloc.dispatch( DeleteNewsForUser() );
+    });
+
+    final GetParams tGetParams = GetParams(
+        reportCode: tReportCode,
+        dateCreate: tDateCreate,
+        unitCreate: tUnitCreate
+    );
+    final tNewsList = <News>[
+      News(
+          newsCode: '1',
+          reportCode: '1',
+          radioCode: '5.20',
+          hourDate: 750000,
+          unitCode: 'Does1',
+          message: 'Desplazamiento',
+          updateDate: 750000,
+          unitCreate: 'Genesis2'
+      )
+    ];
+
+    test('should emits [Loading, Loaded] when retrieve news list after successful use case',() async {
+      // arrange
+      when( deleteNews( any ) )
+          .thenAnswer((_) async => Right(null) );
+      when( getNews( any ) )
+          .thenAnswer((_) async => Right( tNewsList ) );
+      // assert
+      final expected = [
+        Empty(),
+        Loading(),
+        Loaded( newsList: tNewsList)
+      ];
+      expectLater( newsBloc.state, emitsInOrder( expected ) );
+      // act
+      newsBloc.dispatch( DeleteNewsForUser(
+        newsCode: tNewsCode,
+        reportCode: tReportCode,
+        unitCreate: tUnitCreate,
+        dateCreate: tDateCreate
+        )
+      );
+      await untilCalled( getNews( any ) );
+      verify( getNews( tGetParams ) );
+    });
+
   });
 }

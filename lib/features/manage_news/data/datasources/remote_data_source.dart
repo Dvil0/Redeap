@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:redeap/core/api/cloud_fire_store_api.dart';
 import 'package:redeap/core/error/exceptions.dart';
 import 'package:redeap/features/manage_news/data/models/news_model.dart';
