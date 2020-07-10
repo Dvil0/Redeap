@@ -8,6 +8,10 @@ class ShowNewsScreen extends StatelessWidget {
     return Scaffold(
       appBar: MyAppBar(),
       drawer: MyDrawer(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon( Icons.add ),
+        onPressed: () => Navigator.pushNamed(context, 'createNews'),
+      ),
     );
   }
 

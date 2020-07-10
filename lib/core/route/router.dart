@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:redeap/features/manage_news/presentation/screens/create_news_screen.dart';
 import 'package:redeap/features/manage_news/presentation/screens/show_news_screen.dart';
 
 class Router {
@@ -8,6 +9,10 @@ class Router {
       case '/' :
         return MaterialPageRoute(
             builder: (_) => ShowNewsScreen()
+        );
+      case 'createNews' :
+        return MaterialPageRoute(
+            builder: (_) => CreateNewsScreen()
         );
       default:
         return MaterialPageRoute(
