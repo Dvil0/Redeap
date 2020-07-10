@@ -12,7 +12,7 @@ class Router {
         );
       case 'createNews' :
         return MaterialPageRoute(
-            builder: (_) => CreateNewsScreen()
+            builder: (context) => CreateNewsScreen()
         );
       default:
         return MaterialPageRoute(

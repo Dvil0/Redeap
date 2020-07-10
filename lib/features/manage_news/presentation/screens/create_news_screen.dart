@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:redeap/features/manage_news/presentation/bloc/news_bloc.dart';
+import 'package:redeap/features/manage_news/presentation/bloc/news_event.dart';
 
 class CreateNewsScreen extends StatefulWidget {
   @override
@@ -9,20 +12,24 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
   String newsCode;
   String reportCode;
   String radioCode;
-  String hourDate;
+  final int hourDate = DateTime.now().millisecondsSinceEpoch;
   String unitCode;
   String message;
-  String dateUpdate;
-  String unitCreate;
+  final int updateDate = DateTime.now().millisecondsSinceEpoch;
+  final String unitCreate = 'Genesis2';
 
   @override
   Widget build(BuildContext context) {
+    return buildBody(context);
+  }
+
+  Widget buildBody( BuildContext context ) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Crear Novedad'),
         actions: <Widget>[
           IconButton(
-            icon: Icon( Icons.save ),
+            icon: Icon(Icons.save),
             onPressed: _saveNews,
           )
         ],
@@ -31,38 +38,69 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
         child: Container(
           child: Column(
             children: <Widget>[
-              _rowInput( text: 'Cod Novedad', data: newsCode),
-              _rowInput( text: 'Cod Reporte', data: reportCode),
-              _rowInput( text: 'Cod Radio', data: radioCode),
-              _rowInput( text: 'Fecha', data: hourDate),
-              _rowInput( text: 'Unid reportada', data: unitCode),
-              _rowInput( text: 'Mensaje', data: message),
-              _rowInput( text: 'Ult Fecha', data: dateUpdate),
-              _rowInput( text: 'Unid Actual', data: unitCreate),
+            _rowInput(
+                'Cod Reporte',
+                TextField(
+                    keyboardType: TextInputType.number,
+                    onChanged: ( value ) {
+                      reportCode = value;
+                    })
+            ),
+            _rowInput(
+                'Cod Radio',
+                TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: ( value ) {
+                      radioCode = value;
+                    })
+            ),
+            _rowInput(
+                'Unid reportada',
+                TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: ( value ) {
+                      unitCode = value;
+                    })
+            ),
+            _rowInput(
+                'Mensaje',
+                TextField(
+                    keyboardType: TextInputType.text,
+                    onChanged: ( value ) {
+                      message = value;
+                    })
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget _rowInput({String text, String data}) {
+  Widget _rowInput(String text, Widget textField) {
     return Row(
       children: <Widget>[
         Text( text ),
         SizedBox(width: 20,),
         Flexible(
-          child: TextField(
-            onChanged: ( value ) {
-              data = value;
-            },
-          ),
+          child: textField,
         ),
       ],
     );
   }
 
   void _saveNews() {
+    BlocProvider.of<NewsBloc>( context ).dispatch(
+        CreateNewsForUser(
+            newsCode: newsCode,
+            reportCode: reportCode,
+            radioCode: radioCode,
+            hourDate: hourDate,
+            unitCode: unitCode,
+            message: message,
+            updateDate: updateDate,
+            unitCreate: unitCreate
+        )
+    );
     Navigator.pop(context);
   }
 }
