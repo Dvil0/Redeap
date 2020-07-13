@@ -16,6 +16,8 @@ class ShowNewsScreen extends StatefulWidget {
 
 class _ShowNewsScreenState extends State<ShowNewsScreen> {
   BuildContext blocContext;
+  final newsBloc = di<NewsBloc>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
 
   BlocProvider<NewsBloc> buildBody(BuildContext context) {
     return BlocProvider<NewsBloc>(
-      builder: (_) => di<NewsBloc>(),
+      builder: (_) => newsBloc,
       child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
               blocContext = context;
@@ -118,6 +120,6 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
   }
 
   void _showCreateNews() {
-    Navigator.pushNamed(context, Router.CREATE_NEWS, arguments: blocContext);
+    Navigator.pushNamed(context, Router.CREATE_NEWS, arguments: newsBloc);
   }
 }

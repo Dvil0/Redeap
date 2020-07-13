@@ -108,6 +108,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       ( failure ){
         return Error( message: SERVER_FAILURE_MESSAGE );
       }, ( newsList ) {
+        newsList.sort((a,b){
+          return b.hourDate.compareTo(a.hourDate);
+        });
         return Loaded( newsList: newsList );
       }
     );

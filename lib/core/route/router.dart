@@ -17,11 +17,10 @@ class Router {
             builder: (_) => ShowNewsScreen()
         );
       case CREATE_NEWS :
-        var blocContext = settings.arguments as BuildContext;
+        var newsBloc = settings.arguments as NewsBloc;
         return MaterialPageRoute(
-//            builder: (_) => CreateNewsScreen( newsBloc: newsBloc )
               builder: (_) => BlocProvider.value(
-                  value: BlocProvider.of<NewsBloc>(blocContext),
+                  value: newsBloc,
                   child: CreateNewsScreen(),
         )
             );
