@@ -16,7 +16,8 @@ class Redeap extends StatelessWidget {
       title: 'Red de Apoyo',
       theme: ThemeData(
         primaryColor: Colors.white,
-        accentColor: Colors.orange
+        accentColor: Colors.orange,
+//        brightness: Brightness.dark
       ),
       initialRoute: '/',
       onGenerateRoute: Router.generateRoute,

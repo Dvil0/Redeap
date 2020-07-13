@@ -15,7 +15,6 @@ class ShowNewsScreen extends StatefulWidget {
 }
 
 class _ShowNewsScreenState extends State<ShowNewsScreen> {
-  BuildContext blocContext;
   final newsBloc = di<NewsBloc>();
 
 
@@ -37,7 +36,6 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
       builder: (_) => newsBloc,
       child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
-              blocContext = context;
 
               if (state is Empty) {
                 return Container(

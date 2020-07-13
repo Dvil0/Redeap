@@ -40,15 +40,14 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
           child: Column(
             children: <Widget>[
             _rowInput(
-                'Cod Reporte',
+                'Codigo Reporte',
                 TextField(
                     keyboardType: TextInputType.number,
-                    onChanged: ( value ) {
-                      reportCode = value;
-                    })
+                    onChanged: ( value ) => reportCode = value
+                  )
             ),
             _rowInput(
-                'Cod Radio',
+                'Codigo Radio',
                 TextField(
                     keyboardType: TextInputType.text,
                     onChanged: ( value ) {
@@ -56,7 +55,7 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                     })
             ),
             _rowInput(
-                'Unid reportada',
+                'Unidad reportada',
                 TextField(
                     keyboardType: TextInputType.text,
                     onChanged: ( value ) {
@@ -64,9 +63,10 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
                     })
             ),
             _rowInput(
-                'Mensaje',
+                'Detalle',
                 TextField(
                     keyboardType: TextInputType.text,
+                    maxLines: 5,
                     onChanged: ( value ) {
                       message = value;
                     })
@@ -77,15 +77,11 @@ class _CreateNewsScreenState extends State<CreateNewsScreen> {
       ),
     );
   }
+
   Widget _rowInput(String text, Widget textField) {
-    return Row(
-      children: <Widget>[
-        Text( text ),
-        SizedBox(width: 20,),
-        Flexible(
-          child: textField,
-        ),
-      ],
+    return ListTile(
+      title: Text( text ),
+      subtitle: textField,
     );
   }
 
