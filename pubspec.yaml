@@ -23,6 +23,8 @@ dependencies:
   flutter_bloc: ^0.21.0
   # Service Locator
   get_it: ^2.0.1
+  # Date Formater
+  intl: ^0.16.1
 
   cupertino_icons: ^0.1.3
 

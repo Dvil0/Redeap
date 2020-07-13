@@ -4,6 +4,7 @@ import 'package:redeap/features/manage_news/presentation/bloc/news_bloc.dart';
 import 'package:redeap/features/manage_news/presentation/bloc/news_event.dart';
 
 class CreateNewsScreen extends StatefulWidget {
+
   @override
   _CreateNewsScreenState createState() => _CreateNewsScreenState();
 }
